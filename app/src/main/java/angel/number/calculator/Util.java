@@ -1,8 +1,61 @@
 package angel.number.calculator;
 
+import angel.number.calculator.builders.ArrayBuilder;
 import angel.number.calculator.builders.StringBuilder;
 
 public class Util {
+    /**
+     * Sends a message to the console.
+     * 
+     * @param message The message to send.
+     * @return The message.
+     */
+    public void Print(String message) {
+        System.out.println(message);
+    }
+
+    /**
+     * Sends a message to the console.
+     * 
+     * (Accepts an array of strings to print out.)
+     * @param message The message to print.
+     * @return The message.
+     */
+    public void Print(String[] message) {
+        StringBuilder value = new StringBuilder("");
+
+        for (String s : message) {
+            value.append(s);
+            value.append("\n");
+        }
+
+        System.out.println(value.toString());
+    }
+
+    /**
+     * Exits the program either successfully or failure.
+     * @param state If said exit is "failure" or "success".
+     * @return 
+     */
+    public void Exit(String state, String exception) {
+        ArrayBuilder builder = new ArrayBuilder(new String[]{});
+        
+        if (state.equals("success")) {
+            Print("Program exitted with code 0 (success).");
+            System.exit(0);
+        } else if (state.equals("failure")) {
+            builder.push("Program exitted with code 1 (failure).");
+            builder.push("Please check the error log for more information.");
+            builder.push("whitespace");
+            if (!exception.equals("")) {
+                builder.push("Exception: " + exception);
+            }
+
+            Print();
+            System.exit(1);
+        }
+    }
+
     /**
      * Converts said integer value to a string.
      * 
@@ -30,30 +83,10 @@ public class Util {
             ex.printStackTrace();
         }
 
-        if res != -1 {
+        if (res != -1) {
             return res;
         } else {
-
-        }
-    }
-
-    /**
-     * Sends a message to the console.
-     */
-    public void Print(String message) {
-        System.out.println(message);
-    }
-
-    /**
-     * Sends a message to the console.
-     * 
-     * (Accepts an array of strings to print out.)
-     */
-    public void Print(String[] message) {
-        StringBuilder value = new StringBuilder("");
-
-        for (String s : message) {
-            value.append(s);
+            
         }
     }
 
@@ -61,6 +94,7 @@ public class Util {
      * Checks if said year is a leap year.
      * 
      * @param year Year to check.
+     * @return Whether the year is a leap year.
      */
     public boolean IsLeapYear(int year) {
         String val = IntToString(year);

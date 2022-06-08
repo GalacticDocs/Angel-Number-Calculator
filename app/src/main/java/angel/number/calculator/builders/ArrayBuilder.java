@@ -2,8 +2,8 @@ package angel.number.calculator.builders;
 
 import angel.number.calculator.interfaces.IArrayBuilder;
 
-public class ArrayBuilder implements IArrayBuilder {
-    private String[] array;
+public class ArrayBuilder<T> implements IArrayBuilder<T> {
+    private T[] array;
 
     /**
      * The main class for building arrays.
@@ -11,7 +11,7 @@ public class ArrayBuilder implements IArrayBuilder {
      * @param arr The original array to use.
      * @return The array builder.
      */
-    public ArrayBuilder(String[] arr) {
+    public ArrayBuilder(T[] arr) {
         this.array = arr;
     }
 
@@ -94,7 +94,15 @@ public class ArrayBuilder implements IArrayBuilder {
             newArray[i] = this.array[i];
         }
 
-        newArray[newArray.length - 1] = value;
+        String val = "";
+
+        if (value == "whitespace") {
+            val = "\n";
+        } else {
+            val = value;
+        }
+
+        newArray[newArray.length - 1] = val;
         this.array = newArray;
     }
 
@@ -149,5 +157,21 @@ public class ArrayBuilder implements IArrayBuilder {
         }
 
         this.array = newArray;
+    }
+
+    @Override
+    public void clear() {
+        this.array = new String[0];
+    }
+
+    @Override
+    public boolean includes(String value) {
+        for (String s : this.array) {
+            if (s.equals(value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

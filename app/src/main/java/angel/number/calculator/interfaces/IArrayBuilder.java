@@ -1,6 +1,6 @@
 package angel.number.calculator.interfaces;
 
-public interface IArrayBuilder {
+public interface IArrayBuilder<T> {
     /**
      * Joins the array into a string.
      * 
@@ -25,7 +25,7 @@ public interface IArrayBuilder {
      * @param index The index.
      * @return The element.
      */
-    String get(int index);
+    T get(int index);
 
     /**
      * Sets the element at the given index.
@@ -33,14 +33,14 @@ public interface IArrayBuilder {
      * @param index The index.
      * @param value The value.
      */
-    void set(int index, String value);
+    void set(int index, T value);
 
     /**
      * Adds the given element to the end of the array.
      * 
      * @param value The value.
      */
-    void push(String value);
+    void push(T value);
 
     /**
      * Removes the element at the given index.
@@ -54,10 +54,25 @@ public interface IArrayBuilder {
      * 
      * @param value The value.
      */
-    void remove(String value);
+    void remove(T value);
 
     /**
      * Reverses the array.
      */
     void reverse();
+
+    /**
+     * Clears the array.
+     */
+    void clear();
+
+    /**
+     * Checks if a certain item exists in the array.
+     */
+    boolean includes(T value);
+
+    /**
+     * Builds and returns the array.
+     */
+    T[] build();
 }
