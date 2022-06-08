@@ -88,14 +88,14 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
      */
     @Override
     public void push(T value) {
-        T[] newArray = new T[this.array.length + 1];
+        T[] newArray;
 
         for (int i = 0; i < this.array.length; i++) {
             newArray[i] = this.array[i];
         }
 
         
-				if (valueOf(value) == String) {
+				if (value == String) {
 					String val = "";
 
 					if (value == "whitespace") {
