@@ -30,7 +30,7 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
 
         if (reverse) {
             for (int i = end; i >= start; i--) {
-                sb.append(this.array[i]);
+                sb.append(this.array[i].toString());
 
                 if (i != start) {
                     sb.append(separator);
@@ -38,7 +38,7 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
             }
         } else {
             for (int i = start; i <= end; i++) {
-                sb.append(this.array[i]);
+                sb.append(this.array[i].toString());
 
                 if (i != end) {
                     sb.append(separator);
@@ -66,7 +66,7 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
      * @return The element.
      */
     @Override
-    public String get(int index) {
+    public T get(int index) {
         return this.array[index];
     }
 
@@ -77,7 +77,7 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
      * @param value The value.
      */
     @Override
-    public void set(int index, String value) {
+    public void set(int index, T value) {
         this.array[index] = value;
     }
 
@@ -87,22 +87,29 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
      * @param value The value.
      */
     @Override
-    public void push(String value) {
-        String[] newArray = new String[this.array.length + 1];
+    public void push(T value) {
+        T[] newArray = new T[this.array.length + 1];
 
         for (int i = 0; i < this.array.length; i++) {
             newArray[i] = this.array[i];
         }
 
-        String val = "";
+        
+				if (valueOf(value) == String) {
+					String val = "";
 
-        if (value == "whitespace") {
-            val = "\n";
-        } else {
-            val = value;
-        }
+					if (value == "whitespace") {
+						val = "\n";
+					} else {
+						val = value
+					}
 
-        newArray[newArray.length - 1] = val;
+					newArray[newArray.length - 1] = val;
+        	this.array = newArray;
+					return;
+				}
+				
+				newArray[newArray.length - 1] = value;
         this.array = newArray;
     }
 
@@ -113,7 +120,7 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
      */
     @Override
     public void remove(int index) {
-        String[] newArray = new String[this.array.length - 1];
+        T[] newArray = new T[this.array.length - 1];
 
         for (int i = 0; i < index; i++) {
             newArray[i] = this.array[i];
@@ -132,7 +139,7 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
      * @param value The value.
      */
     @Override
-    public void remove(String value) {
+    public void remove(T value) {
         int index = -1;
 
         for (int i = 0; i < this.array.length; i++) {
@@ -150,7 +157,7 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
 
     @Override
     public void reverse() {
-        String[] newArray = new String[this.array.length];
+        T[] newArray = new T[this.array.length];
 
         for (int i = 0; i < this.array.length; i++) {
             newArray[i] = this.array[this.array.length - i - 1];
@@ -161,12 +168,12 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
 
     @Override
     public void clear() {
-        this.array = new String[0];
+        this.array = new T[0];
     }
 
     @Override
-    public boolean includes(String value) {
-        for (String s : this.array) {
+    public boolean includes(T value) {
+        for (T s : this.array) {
             if (s.equals(value)) {
                 return true;
             }
@@ -174,4 +181,9 @@ public class ArrayBuilder<T> implements IArrayBuilder<T> {
 
         return false;
     }
+
+	@Override
+	public T[] build() {
+		return this.array;
+	} 
 }

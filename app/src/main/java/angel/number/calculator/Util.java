@@ -38,7 +38,7 @@ public class Util {
      * @return 
      */
     public void Exit(String state, String exception) {
-        ArrayBuilder builder = new ArrayBuilder(new String[]{});
+        ArrayBuilder builder = new ArrayBuilder<String>(new String[]{});
         
         if (state.equals("success")) {
             Print("Program exitted with code 0 (success).");
@@ -51,7 +51,7 @@ public class Util {
                 builder.push("Exception: " + exception);
             }
 
-            Print();
+            Print(builder.build());
             System.exit(1);
         }
     }
