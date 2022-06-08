@@ -45,10 +45,10 @@ public class Util {
             System.exit(0);
         } else if (state.equals("failure")) {
             builder.push("Program exitted with code 1 (failure).");
-            builder.push("Please check the error log for more information.");
-            builder.push("whitespace");
             if (!exception.equals("")) {
                 builder.push("Exception: " + exception);
+								builder.push("Please check the error log for more information.");
+            		builder.push("whitespace");
             }
 
             Print(builder.build());
